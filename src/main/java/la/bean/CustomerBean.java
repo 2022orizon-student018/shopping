@@ -1,4 +1,4 @@
-package shopping;
+package la.bean;
 
 public class CustomerBean {
 	private int code;

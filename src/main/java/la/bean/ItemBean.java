@@ -1,4 +1,4 @@
-package shopping.bean;
+package la.bean;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ public class ItemBean implements Serializable{
 	private int code;
 	private String name;
 	private int price;
-	ptrivate int quantity;
+	private int quantity;
 
 
 	public ItemBean(int code, String name, int price) {
@@ -16,7 +16,7 @@ public class ItemBean implements Serializable{
 		this.price = price;
 	}
 	
-	public ItemBean(int code, String name, int price, int quatntity) {
+	public ItemBean(int code, String name, int price, int quatntity, int quantity) {
 		super();
 		this.code = code;
 		this.name = name;

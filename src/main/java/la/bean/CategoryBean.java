@@ -1,4 +1,4 @@
-package shopping;
+package la.bean;
 
 import java.io.Serializable;
 

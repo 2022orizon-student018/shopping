@@ -1,4 +1,4 @@
-package cart.servlet;
+package la.bean;
 
 import java.util.ArrayList;
 import java.util.List;

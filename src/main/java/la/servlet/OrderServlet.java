@@ -1,4 +1,4 @@
-package order.servlet;
+package la.servlet;
 
 import java.io.IOException;
 
@@ -10,20 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import la.CartBean;
 import la.bean.CartBean;
-import la.bean.CartBean;
-import la.bean.CartBean;
+import la.bean.CustomerBean;
+import la.dao.DAOException;
+import la.dao.OrderDAO;
 
 @WebServlet("/OrderServlet")
 public class OrderServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-		protected void doGet(HttpServletRequest request,
-				HttpServletResponse response) throws ServletException, IOException {
-			request.setCharacterEncoding("UTF-8");
-    public OrderServlet() {
-        super();
-    }
+	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+    
     HttpSession session = request.getSession(false);
     if (session == null) {
     	request.setAttribute("message",
@@ -33,14 +31,14 @@ public class OrderServlet extends HttpServlet {
     }
     CartBean cart = (CartBean)session.getAttribute("cart");
     if (cart == null) {
-    	request, setAttribute("message", "正しく操作してください。");
+    	request.setAttribute("message", "正しく操作してください。");
     	gotoPage(request, response, "/errInternal.jsp");
     	return;
     }
     
     try {
-    	String actioon = request.getParameter("action");
-    	if (action == null || action.length() == 0)
+    	String action = request.getParameter("action");
+    	if (action == null || action.length() == 0
     		|| action.equals("input_customer")) {
     		gotoPage(request, response, "/customerInfo.jsp");
     		} else if (action.equals("confirm")){
@@ -83,18 +81,10 @@ private void gotoPage(HttpServletRequest request,
 		HttpServletResponse response, String page) throws ServletException,
 		IOException {
 	RequestDispatcher rd = request.getRequestDispatcher(page);
-	rd.forward(request, response);
-}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

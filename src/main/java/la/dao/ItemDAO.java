@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import la.bean.CategoryBean;
 import la.bean.ItemBean;
 
 public class ItemDAO {
@@ -26,9 +27,9 @@ public class ItemDAO {
 		}
 	}
 
-	public List<ItemBean> findAll() throws DAOException {
+	public List<CategoryBean> findAllCategory() throws DAOException {
 		// SQL文の作成
-		String sql = "SELECT * FROM item";
+		String sql = "SELECT * FROM category order by code";
 		
 		try (// データベースへの接続
 			 Connection con = DriverManager.getConnection(url, user, pass);
@@ -37,12 +38,11 @@ public class ItemDAO {
 			 // SQLの実行
 			 ResultSet rs = st.executeQuery();) {
 			// 結果の取得
-			List<ItemBean> list = new ArrayList<ItemBean>();
+			List<CategoryBean> list = new ArrayList<CategoryBean>();
 			while (rs.next()) {
 				int code = rs.getInt("code");
 				String name = rs.getString("name");
-				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code, name, price);
+				CategoryBean bean = new CategoryBean(code, name);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -53,65 +53,72 @@ public class ItemDAO {
 		}
 	}
 	
-	public List<ItemBean> findByCategory(int categoryCode)throws DAOException {
+	public List<ItemBean> findByCategory(int categoryCode)
+		throws DAOException {
 		// SQL文の作成
-		String sql = "SELECT nextval('orderd_code_seq')";
+		String sql = 
+			"SELECT * FROM item WHERE catgory_code = ? ORDER BY code";
 		
-		try (// データベースの接続
+		try (// データベースへの接続
 			Connection con = DriverManager.getConnection(url, user, pass);
-				//PrepareStatementオブジェクトの取得
-				PreparedStatement st = con.prepareStatement(sql);
-				//SQLの実行
-			ResultSet rs = st.executeQuery();) {
-			if (rs.next()) {
-				orderNumber = rs.getInt(1);
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました。");
-			
-		}
-			//注文情報のOrderedテーブルへの追加
-		sql = "INSERT INTO ordered VALUE(?, ?, ?, ?)";
-		
-		try(// データベースへの接続
-			Connection con = DriverManager.getConnection(url, user, pass);
-				//Preparestatementオブジェクトのの取得
+			//PreparedStatementオブジェクトの取得
 			PreparedStatement st = con.prepareStatement(sql);) {
-			st.setInt(1, orderNumber);
-			st.setInt(2, customerNumber);
-			Date today = new Date(System.currentTimeMillis());
-			st.setDate(3, today);
-			st.setDate(4, cart.getTotal());
-			st.executeUpdate();
-		} catch (SQLException e) {
-			e. printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました。");
+			// カテゴリの設定
+			st.setInt(1, categoryCode);
 			
-		}
-		
-		sql = "INSERT INTO ordered_detail VALUES(?, ?, ?)";
-		
-		try
-		Connection con = DriverManager .getConnection(url, user, pass);
-		PreparedStatement st = con.prepareStatement(sql);) {
-			List<ItemBean> items = cart.getItems();
-			for (ItemBean item : items) {
-			st.setInt(1, orderNumber);
-			st.setInt(2, item.getCode());
-			st.setInt(3, item.getQuantity());
-			st.executeUpdate();
-			
+			try (// SQLの実行
+				ResultSet rs = st.executeQuery();) {
+				// 結果の取得および表示
+				List<ItemBean> list = new ArrayList<ItemBean>();
+				while (rs.next()) {
+					int code = rs.getInt("code");
+					String name = rs.getString("name");
+					int price = rs.getInt("price");
+					ItemBean bean = new ItemBean(code, name, price);
+					list.add(bean);
+				}
+				// 商品一覧をListとして返す
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
 			}
-			return orderNumber;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードに失敗しました。");
 		}
+		
+		public ItemBean findByPrimarykey(int key) throws DAOException {
+			// SQL文の作成
+			String sql = "SELECT * FROM item WHERE code = ?";
+			
+			try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+				// カテゴリの設定
+				st.setInt(1, key);
 				
-	}
-	
-	
-	
+				try (// SQLの実行
+					ResultSet rs = st.executeQuery();) {
+					// 結果の取得および表示
+					if (rs.next()) {
+						int code = rs.getInt("code");
+						String name = rs.getString("name");
+						int price = rs.getInt("price");
+						ItemBean bean = new ItemBean(code, name, price);
+						return bean; // 主キーに該当するレコードを返す
+					} else {
+						return null; // 主キーに該当するレコードなし
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new DAOException("レコードの取得に失敗しました。");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+			}
+		}
 }

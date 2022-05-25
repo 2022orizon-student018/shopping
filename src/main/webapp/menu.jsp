@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <a href="/shopping/ShowItemServlet?action=top">ようこそ</a>|
-<c:forEach item="${categories}" var="category">
+<c:forEach items="${categories}" var="category">
 <a href="/shopping/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
 </c:forEach>
 
