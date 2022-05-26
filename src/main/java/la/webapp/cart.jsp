@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<jsp:include page="/cart.jsp" /><br>
+<jsp:include page="/menu.jsp" /><br>
 <h3>現在のカートの中身</h3>
 
 <c:if test="${empty cart.items}">
@@ -39,7 +39,6 @@
 </c:forEach>
 <tr><td align="right" colspan="6">総計:${cart.total}円</td></tr>
 </table>
-
 <form action="/shopping/OrderServlet?action=input_customer" method="post">
 	<input type="submit" value="注文する">
 </form>

@@ -18,7 +18,7 @@ import la.dao.ItemDAO;
 @WebServlet("/ShowItemServlet")
 public class ShowItemServlet extends HttpServlet {
 
-	protected void deGet(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// パラメータの解析

@@ -57,7 +57,7 @@ public class ItemDAO {
 		throws DAOException {
 		// SQL文の作成
 		String sql = 
-			"SELECT * FROM item WHERE catgory_code = ? ORDER BY code";
+			"SELECT * FROM item WHERE category_code = ? order by code";
 		
 		try (// データベースへの接続
 			Connection con = DriverManager.getConnection(url, user, pass);

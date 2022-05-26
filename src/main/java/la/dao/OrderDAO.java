@@ -74,7 +74,7 @@ public class OrderDAO {
 				throw new DAOException("レコードの取得に失敗しました。");
 		}
 		
-		sql = "insert into customer values(?, ?, ?, ?, ?)";
+		sql = "insert into ordered values(?, ?, ?, ?)";
 		
 		try(
 			Connection con = DriverManager.getConnection(url, user, pass);

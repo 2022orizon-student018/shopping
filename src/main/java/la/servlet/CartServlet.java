@@ -60,7 +60,7 @@ public class CartServlet extends HttpServlet {
 		request.setAttribute("message", "正しく操作してください。");
 		gotoPage(request, response, "/errInternal.jsp");
 	}	
-} catch (DAOException e) {
+	} catch (DAOException e) {
 		e.printStackTrace();
 		request.setAttribute("message",
 		    	"セッションが切れています。もう一度トップページより操作してください。");

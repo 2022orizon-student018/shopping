@@ -18,7 +18,7 @@
 <tr><td>商品番号</td><td>商品名</td><td>単価（税込み）</td>
 <td>個数</td><td>小計</td></tr>
 
-<c:forEach items="${cart.items}" var ="items">
+<c:forEach items="${cart.items}" var ="item">
 <tr>
 	<td align="center">${item.code}</td>
 	<td align="center">${item.name}</td>
