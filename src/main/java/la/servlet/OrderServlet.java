@@ -42,6 +42,18 @@ public class OrderServlet extends HttpServlet {
     		|| action.equals("input_customer")) {
     		gotoPage(request, response, "/customerInfo.jsp");
     		} else if (action.equals("confirm")){
+    			
+    			String name = request.getParameter("name");
+    			String address = request.getParameter("address");
+    			String tel = request.getParameter("tel");
+    			String email = request.getParameter("email");
+    			if(name == null || name.length() == 0 || address == null || address.length() == 0 || tel == null || tel.length() == 0 || email == null || email.length() == 0) {
+    			request.setAttribute("message", "正しく入力して下さい。");
+				gotoPage(request, response, "/errInternal.jsp");	
+    			return;
+    				
+    				
+    			}
     			CustomerBean bean = new CustomerBean();
     			bean.setName(request.getParameter("name"));
     			bean.setAddress(request.getParameter("address"));

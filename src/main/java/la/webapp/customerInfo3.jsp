@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <!DOCTYPE html>
 <html>
@@ -23,19 +22,12 @@
 <tr>
 	<td align="center">${item.code}</td>
 	<td align="center">${item.name}</td>
-	<td align="right"><fmt:formatNumber value="${item.price}"/>円</td>
+	<td align="right">${item.price}円</td>
 	<td align="right">${item.quantity}</td>
-	<td align="right"><fmt:formatNumber value="${item.price * item.quantity}"/>円</td>
+	<td align="right">${item.price * item.quantity}円</td>
 </tr>
 </c:forEach>
-<tr><td align="right" colspan="6">
-<c:if test="${cart.total lt 10000}">
-総計:<fmt:formatNumber value="${cart.total}"/>円
-</c:if>
-<c:if test="${cart.total ge 10000}">
-割引後の総計:<fmt:formatNumber value="${cart.total * 0.9}"/>円
-</c:if>
-</td></tr>
+<tr><td align="right" colspan="6">総計：${cart.total}円</td></tr>
 </table>
 
 <h3>お客様情報を入力してください</h3>
@@ -62,12 +54,11 @@
 <input type="radio" name="pay" value="cash">代引き
 
 <br><br>
-
+	
 <input type="submit" value="確認画面へ">
 </form>
 
 </c:if>
-
 
 </body>
 </html>
