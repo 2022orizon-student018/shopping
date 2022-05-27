@@ -8,6 +8,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Welcom shopping!</title>
+
+<link rel="stylesheet" href="mydesign">
+<style>
+body {
+margin:0;
+width:100vw;
+height:100vh;
+background-image:url("https://beiz.jp/images_P/purple/purple_00116.jpg");
+background-size:100%;
+
+<image src="https://thumb.ac-illust.com/c8/c869d84190794b5f9ba7ff029ef0d26f_t.jpeg">
+}
+
+</style>
 </head>
 <body>
 
@@ -28,14 +42,22 @@
 	<td align="right"><fmt:formatNumber value="${item.price * item.quantity}"/>円</td>
 </tr>
 </c:forEach>
-<tr><td align="right" colspan="6">
 <c:if test="${cart.total lt 10000}">
-総計:<fmt:formatNumber value="${cart.total}"/>円
+<tr><td align="right" colspan="6">
+合計金額:<fmt:formatNumber value="${cart.total}"/>円
+</td></tr>
 </c:if>
 <c:if test="${cart.total ge 10000}">
-割引後の総計:<fmt:formatNumber value="${cart.total * 0.9}"/>円
-</c:if>
+<tr><td align="right" colspan="6">
+合計金額:<del><fmt:formatNumber value="${cart.total}"/></del>円
 </td></tr>
+<tr><td align="right" colspan="6">
+割引：-<fmt:formatNumber value="${cart.total - (cart.total * 0.9)}"/>円
+</td></tr>
+<tr><td align="right" colspan="6">
+割引後の合計金額:<fmt:formatNumber value="${cart.total * 0.9}"/>円
+</td></tr>
+</c:if>
 </table>
 
 <h3>お客様情報を入力してください</h3>
@@ -55,9 +77,8 @@
 		<td>e-mail</td><td><input type="text" name="email"></td>
 		</tr>
 	</table>
-	
 	<h3>お支払い方法を選択してください</h3>
-<input type="radio" name="pay" value="card">クレジットカード
+<input checked type="radio" name="pay" value="card">クレジットカード
 <input type="radio" name="pay" value="bank">銀行振り込み
 <input type="radio" name="pay" value="cash">代引き
 

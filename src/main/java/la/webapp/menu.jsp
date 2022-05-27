@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<a href="/shopping/ShowItemServlet?action=top">ようこそ</a>|
+<a href="/shopping/ShowItemServlet?action=top">ようこそ<br></a>|
 <c:forEach items="${categories}" var="category">
-<a href="/shopping/ShowItemServlet?action=list&code=${category.code}">${category.name}</a>|
+<a href="/shopping/ShowItemServlet?action=list&code=${category.code}">${category.name}<br></a>|
 </c:forEach>
 
 <a href="/shopping/CartServlet?action=show">カートを見る</a>

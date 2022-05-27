@@ -7,6 +7,34 @@ public class CustomerBean {
 	private String tel;
 	private String email;
 	
+	private String card;
+	private String bank;
+	private String cash;
+	
+	public String getCard() {
+		return card;
+	}
+
+	public void setCard(String card) {
+		this.card = card;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getCash() {
+		return cash;
+	}
+
+	public void setCash(String cash) {
+		this.cash = cash;
+	}
+
 	public CustomerBean() {
 		
 	}
@@ -58,6 +86,13 @@ public class CustomerBean {
 		this.address = address;
 		this.tel = tel;
 		this.email = email;
+	}
+
+	public CustomerBean(String card, String bank, String cash) {
+		super();
+		this.card = card;
+		this.bank = bank;
+		this.cash = cash;
 	}
 
 }
